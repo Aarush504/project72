@@ -1,15 +1,40 @@
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Alert} from 'react-native';
 import {Header} from 'react-native-elements';
+import firebase from 'firebase';
+import db from '../config';
 
 export default class WriteStoryScr extends React.Component{
+constructor(){
+    super();
+    this.state={
+        title:'',
+        author:'',
+        story:'',
+    }
+}
+
+submitStory =()=>{
+    db.collection("stories").add({
+        title: this.state.title,
+        author: this.state.author,
+        story: this.state.story
+    })
+    this.setState({
+        title:'',
+        author:'',
+        story:'',
+    })
+    alert('Your Story is saved successfully ');
+}
+
     render(){
         return(
             <View style={styles.container}>
                 <TextInput style={styles.story} placeholder={'What is the name of your story?'}/>
     <TextInput style={styles.story} placeholder={'who is the author of this story?'}/>
     <TextInput style={styles.inputBox2}  placeholder={'Write your story here'} multiline={true}/>
-    <TouchableOpacity style={styles.submit}>
+    <TouchableOpacity style={styles.submit} onPress={this.submitStory}>
         <Text>Submit</Text>
     </TouchableOpacity>
             </View>
