@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Alert} from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Alert, ToastAndroid, KeyboardAvoidingView} from 'react-native';
 import {Header} from 'react-native-elements';
 import firebase from 'firebase';
 import db from '../config';
@@ -25,19 +25,21 @@ submitStory =()=>{
         author:'',
         story:'',
     })
+    //ToastAndroid.show(" Your story has been submitted",ToastAndroid.LONG)
+      //ToastAndroid.show(" Your story has been submitted",ToastAndroid.SHORT)
     alert('Your Story is saved successfully ');
 }
 
     render(){
         return(
-            <View style={styles.container}>
+            <KeyboardAvoidingView style={styles.container} behavior= "padding" enabled>
                 <TextInput style={styles.story} placeholder={'What is the name of your story?'}/>
     <TextInput style={styles.story} placeholder={'who is the author of this story?'}/>
     <TextInput style={styles.inputBox2}  placeholder={'Write your story here'} multiline={true}/>
     <TouchableOpacity style={styles.submit} onPress={this.submitStory}>
         <Text>Submit</Text>
     </TouchableOpacity>
-            </View>
+    </KeyboardAvoidingView>
         )
     }
 }
